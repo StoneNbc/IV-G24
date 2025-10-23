@@ -404,8 +404,6 @@ app_styles <- '
     box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12) !important;
   }
   .map-page {
-    max-width: 1260px;
-    margin: 0 auto;
     padding: 4px 32px 40px;
   }
   .planner-toolbar {
@@ -515,6 +513,171 @@ app_styles <- '
     box-shadow: 0 10px 28px rgba(30, 64, 175, 0.12);
     border: 1px solid rgba(67, 97, 238, 0.08);
   }
+  .insight-section {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .insight-hero {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px;
+    padding: 26px 32px;
+    border-radius: 26px;
+    margin-bottom: 28px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 24px 40px rgba(17, 34, 64, 0.24);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: #f8fbff;
+  }
+  .insight-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 55%);
+    mix-blend-mode: screen;
+    opacity: 0.85;
+  }
+  .insight-hero.transit-hero {
+    background: linear-gradient(135deg, rgba(25, 55, 109, 0.92), rgba(64, 121, 207, 0.85));
+  }
+  .insight-hero.dining-hero {
+    background: linear-gradient(135deg, rgba(142, 36, 170, 0.88), rgba(240, 101, 67, 0.82));
+  }
+  .insight-hero.planner-hero {
+    background: linear-gradient(135deg, rgba(17, 80, 123, 0.9), rgba(67, 206, 162, 0.78));
+  }
+  .insight-hero .hero-text {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .insight-hero .hero-text h2 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+  }
+  .insight-hero .hero-text p {
+    margin: 0;
+    color: rgba(248, 252, 255, 0.9);
+    line-height: 1.5;
+  }
+  .hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    gap: 16px;
+  }
+  .insight-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .insight-badge {
+    background: rgba(255,255,255,0.14);
+    padding: 10px 18px;
+    border-radius: 999px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 160px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.25);
+  }
+  .insight-badge .badge-label {
+    font-size: 12px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    opacity: 0.75;
+    font-weight: 600;
+  }
+  .insight-badge .badge-value {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .insight-card .card-header {
+    margin-bottom: 22px;
+  }
+  .insight-card .card-header h3 {
+    margin: 0;
+    color: #1d3557;
+    font-weight: 700;
+  }
+  .insight-card .card-header p {
+    margin-top: 8px;
+    margin-bottom: 0;
+    color: rgba(51, 65, 85, 0.82);
+    max-width: 720px;
+  }
+  .insight-card .card-header .insight-badges {
+    margin-top: 20px;
+  }
+  .filter-panel {
+    background: rgba(67, 97, 238, 0.06);
+    border-radius: 18px;
+    padding: 18px 20px 10px;
+    border: 1px solid rgba(67, 97, 238, 0.16);
+    margin-bottom: 24px;
+  }
+  .filter-panel .filters,
+  .filter-panel .filters-row {
+    margin-bottom: 12px;
+  }
+  .insight-layout {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+  .insight-visual,
+  .insight-table {
+    background: rgba(255,255,255,0.9);
+    border-radius: 18px;
+    padding: 18px 20px 22px;
+    box-shadow: 0 16px 24px rgba(15, 23, 42, 0.12);
+    border: 1px solid rgba(67, 97, 238, 0.08);
+  }
+  .insight-visual h4,
+  .insight-table h4 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #1f2937;
+    font-weight: 700;
+  }
+  .insight-tip {
+    background: rgba(31, 60, 136, 0.08);
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    color: rgba(30, 41, 59, 0.75);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .insight-tip::before {
+    content: "i";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    width: 22px;
+    height: 22px;
+    background: rgba(31, 60, 136, 0.14);
+    border-radius: 50%;
+    color: var(--brand-secondary);
+    flex: none;
+  }
+  .insight-panel-footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .insight-panel-footer .ghost-btn {
+    background: rgba(255,255,255,0.95) !important;
+  }
   .card h2 {
     margin-top: 0;
     margin-bottom: 20px;
@@ -536,7 +699,8 @@ app_styles <- '
     border-radius: 12px !important;
   }
   .home-hero {
-    max-width: 1032px;
+    max-width: 100%;
+    width: 100%;
     margin: 1px auto 2px auto;
     text-align: center;
     background: linear-gradient(160deg, rgba(9, 18, 41, 0.18), rgba(9, 18, 41, 0.35)),
@@ -717,52 +881,55 @@ home_tab <- tabPanel(
   "Home",
   value = "home",
   div(
-    class = "home-hero",
-    h1("Melbourne Journey Companion"),
-    p("A single destination for Melbourne residents and visitors to plan journeys, understand landmark accessibility, and uncover nearby dining options.")
-  ),
-  div(
-    class = "home-metrics",
+    class = "container-fluid insight-section home-section",
     div(
-      class = "stat-card",
-      span(class = "stat-number", "40+"),
-      span(class = "stat-label", "Melbourne CBD landmarks")
+      class = "home-hero",
+      h1("Melbourne Journey Companion"),
+      p("A single destination for Melbourne residents and visitors to plan journeys, understand landmark accessibility, and uncover nearby dining options.")
     ),
     div(
-      class = "stat-card",
-      span(class = "stat-number", "60+"),
-      span(class = "stat-label", "Bus & City Circle stops")
+      class = "home-metrics",
+      div(
+        class = "stat-card",
+        span(class = "stat-number", "40+"),
+        span(class = "stat-label", "Melbourne CBD landmarks")
+      ),
+      div(
+        class = "stat-card",
+        span(class = "stat-number", "60+"),
+        span(class = "stat-label", "Bus & City Circle stops")
+      ),
+      div(
+        class = "stat-card",
+        span(class = "stat-number", "500 m - 1 km"),
+        span(class = "stat-label", "Custom explore radius")
+      )
     ),
+    # div(
+    #   class = "home-cta",
+    #   actionButton("go_map", "Launch Journey Planner", class = "primary-btn"),
+    #   actionButton("go_insights", "View Access Insights", class = "ghost-btn")
+    # ),
     div(
-      class = "stat-card",
-      span(class = "stat-number", "500 m - 1 km"),
-      span(class = "stat-label", "Custom explore radius")
-    )
-  ),
-  # div(
-  #   class = "home-cta",
-  #   actionButton("go_map", "Launch Journey Planner", class = "primary-btn"),
-  #   actionButton("go_insights", "View Access Insights", class = "ghost-btn")
-  # ),
-  div(
-    class = "home-cards",
-    div(
-      class = "info-card",
-      h3(tagList("Transport", tags$br(), "Navigation")),
-      p("Use the Journey Planner page to explore landmarks, bus stops, and City Circle tram stops, then compare walking, bus, and tram routes in seconds."),
-      actionButton("card_planner", "Open Journey Planner", class = "ghost-btn", width = "100%")
-    ),
-    div(
-      class = "info-card",
-      h3(tagList("Landmark", tags$br(), "Accessibility")),
-      p("Filter by theme on the Transit Accessibility page to evaluate the closest bus and tram stops and generate shareable tables."),
-      actionButton("card_transit", "Explore Transit Insights", class = "ghost-btn", width = "100%")
-    ),
-    div(
-      class = "info-card",
-      h3(tagList("Dining", tags$br(), "Recommendations")),
-      p("Choose any landmark to instantly surface nearby dining venues, ranked by walking distance and seating capacity."),
-      actionButton("card_dining", "Explore Dining Insights", class = "ghost-btn", width = "100%")
+      class = "home-cards",
+      div(
+        class = "info-card",
+        h3(tagList("Transport", tags$br(), "Navigation")),
+        p("Use the Journey Planner page to explore landmarks, bus stops, and City Circle tram stops, then compare walking, bus, and tram routes in seconds."),
+        actionButton("card_planner", "Open Journey Planner", class = "ghost-btn", width = "100%")
+      ),
+      div(
+        class = "info-card",
+        h3(tagList("Landmark", tags$br(), "Accessibility")),
+        p("Filter by theme on the Transit Accessibility page to evaluate the closest bus and tram stops and generate shareable tables."),
+        actionButton("card_transit", "Explore Transit Insights", class = "ghost-btn", width = "100%")
+      ),
+      div(
+        class = "info-card",
+        h3(tagList("Dining", tags$br(), "Recommendations")),
+        p("Choose any landmark to instantly surface nearby dining venues, ranked by walking distance and seating capacity."),
+        actionButton("card_dining", "Explore Dining Insights", class = "ghost-btn", width = "100%")
+      )
     )
   )
 )
@@ -771,8 +938,28 @@ map_tab <- tabPanel(
   "Journey Planner",
   value = "planner",
   div(
-    class = "map-page",
-    div(class = "title", "Melbourne Visitor Map"),
+    class = "container-fluid insight-section map-page",
+    div(
+      class = "insight-hero planner-hero",
+      div(
+        class = "hero-text",
+        h2("Design the Smartest Route"),
+        p("Set your starting point and landmark to compare walking paths with the quickest tram and bus options before you head out.")
+      ),
+      div(
+        class = "hero-visual",
+        div(
+          class = "insight-badge",
+          span(class = "badge-label", "Modes compared"),
+          span(class = "badge-value", "Walk · Bus · Tram")
+        ),
+        div(
+          class = "insight-badge",
+          span(class = "badge-label", "Instant insights"),
+          span(class = "badge-value", "Stops & distance")
+        )
+      )
+    ),
     div(
       class = "planner-toolbar",
       div(
@@ -826,18 +1013,65 @@ access_insights_transit_tab <- tabPanel(
   "Transit Accessibility",
   value = "access_transit",
   div(
-    class = "container-fluid",
+    class = "container-fluid insight-section",
     div(
-      class = "card",
-      h2("Landmark Public Transport Accessibility"),
+      class = "insight-hero transit-hero",
       div(
-        class = "filters",
-        selectInput("theme", "Theme", choices = NULL, width = "280px"),
-        selectInput("subtheme", "Sub Theme", choices = NULL, width = "280px"),
-        numericInput("maxdist", "Max Distance Filter (m, optional)", value = NA, min = 0, step = 50, width = "220px")
+        class = "hero-text",
+        h2("Transit Accessibility"),
+        p("Compare how each landmark theme connects with Melbourne's bus and tram network before you set out.")
       ),
-      plotlyOutput("plot_access", height = "500px"),
-      DTOutput("table_access")
+      div(
+        class = "hero-visual",
+        div(
+          class = "insight-badge",
+          span(class = "badge-label", "Stops mapped"),
+          span(class = "badge-value", "60+ city nodes")
+        ),
+        div(
+          class = "insight-badge",
+          span(class = "badge-label", "Coverage window"),
+          span(class = "badge-value", "400 m - 1 km")
+        )
+      )
+    ),
+    div(
+      class = "card insight-card",
+      div(
+        class = "card-header",
+        h3("Landmark Public Transport Accessibility"),
+        p("Refine the filters to highlight the closest tram and bus stops, then explore how walking distance shifts across landmark categories.")
+      ),
+      div(
+        class = "filter-panel",
+        div(
+          class = "filters",
+          selectInput("theme", "Theme", choices = NULL, width = "280px"),
+          selectInput("subtheme", "Sub Theme", choices = NULL, width = "280px"),
+          numericInput("maxdist", "Max Distance Filter (m, optional)", value = NA, min = 0, step = 50, width = "220px")
+        )
+      ),
+      div(
+        class = "insight-layout",
+        div(
+          class = "insight-visual",
+          h4("Accessibility Overview"),
+          plotlyOutput("plot_access", height = "420px"),
+          div(
+            class = "insight-tip",
+            "Tip: Hover on a landmark to compare the tram and bus options serving the same destination."
+          )
+        ),
+        div(
+          class = "insight-table",
+          h4("Closest Stops Detail"),
+          DTOutput("table_access"),
+          div(
+            class = "insight-tip",
+            "Enter a maximum walking distance above to focus on mobility-friendly drop-off points."
+          )
+        )
+      )
     )
   )
 )
@@ -846,33 +1080,72 @@ access_insights_dining_tab <- tabPanel(
   "Dining Insights",
   value = "access_dining",
   div(
-    class = "container-fluid",
+    class = "container-fluid insight-section",
     div(
-      class = "card",
-      h2("Top Nearby Restaurants by Distance"),
+      class = "insight-hero dining-hero",
       div(
-        class = "filters-row",
-        selectInput("theme2", "Theme", choices = NULL, width = "220px"),
-        selectInput("subtheme2", "Sub Theme", choices = NULL, width = "220px"),
-        selectizeInput(
-          "landmark2", "Landmark", choices = NULL, width = "360px",
-          options = list(placeholder = "Search or select a landmark...")
+        class = "hero-text",
+        h2("Design Post-Visit Meal"),
+        p("Pair each landmark with nearby dining experiences based on walking distance, capacity, and vibe.")
+      ),
+      div(
+        class = "hero-visual",
+        div(
+          class = "insight-badge",
+          span(class = "badge-label", "Venues analysed"),
+          span(class = "badge-value", "400+ eateries")
+        ),
+        div(
+          class = "insight-badge",
+          span(class = "badge-label", "Quick toggle"),
+          span(class = "badge-value", "Distance vs capacity")
+        )
+      )
+    ),
+    div(
+      class = "card insight-card",
+      div(
+        class = "card-header",
+        h3("Top Nearby Restaurants by Distance"),
+        p("Adjust the filters to switch between intimate cafes and higher-capacity dining rooms before locking in a venue.")
+      ),
+      div(
+        class = "filter-panel",
+        div(
+          class = "filters-row",
+          selectInput("theme2", "Theme", choices = NULL, width = "220px"),
+          selectInput("subtheme2", "Sub Theme", choices = NULL, width = "220px"),
+          selectizeInput(
+            "landmark2", "Landmark", choices = NULL, width = "360px",
+            options = list(placeholder = "Search or select a landmark...")
+          )
+        ),
+        div(
+          class = "filters-row",
+          sliderInput("radius", "Radius (m)", min = 100, max = 1000, value = 500, step = 50, width = "300px"),
+          sliderInput("topn", "Top N results", min = 5, max = 30, step = 5, value = 10, width = "300px")
+        ),
+        div(
+          class = "filters-row",
+          radioButtons(
+            "sort_metric", "Sort by:",
+            choices = c("Distance (asc)" = "distance", "Capacity (desc)" = "seats"),
+            selected = "distance", inline = TRUE
+          )
         )
       ),
       div(
-        class = "filters-row",
-        sliderInput("radius", "Radius (m)", min = 100, max = 1000, value = 500, step = 50, width = "300px"),
-        sliderInput("topn", "Top N results", min = 5, max = 30, step = 5, value = 10, width = "300px")
-      ),
-      div(
-        class = "filters-row",
-        radioButtons(
-          "sort_metric", "Sort by:",
-          choices = c("Distance (asc)" = "distance", "Capacity (desc)" = "seats"),
-          selected = "distance", inline = TRUE
+        class = "insight-layout",
+        div(
+          class = "insight-visual",
+          h4("Dining Radius Visual"),
+          plotlyOutput("plot_cafes", height = "460px"),
+          div(
+            class = "insight-tip",
+            "Tip: Switch the sorting to capacity when organising group dinners or family gatherings."
+          )
         )
-      ),
-      plotlyOutput("plot_cafes", height = "480px")
+      )
     )
   )
 )
