@@ -82,7 +82,33 @@ load_landmarks <- function() {
 }
 
 load_tram_tracks_data <- function() {
-  read_csv("datasets/tram-tracks.csv", show_col_types = FALSE)
+  tracks <- read_csv("datasets/tram-tracks.csv", show_col_types = FALSE)
+
+  # Normalise column names that may contain BOM characters
+  names(tracks) <- names(tracks) %>%
+    stringr::str_replace("\ufeff", "")
+
+  if (!"Geo Shape" %in% names(tracks)) {
+    return(NULL)
+  }
+
+  valid_idx <- which(!is.na(tracks$`Geo Shape`) & tracks$`Geo Shape` != "")
+  if (!length(valid_idx)) {
+    return(NULL)
+  }
+
+  geom <- sf::st_as_sfc(tracks$`Geo Shape`[valid_idx], GeoJSON = TRUE)
+  geom <- sf::st_set_crs(geom, 4326)
+
+  # Cast polygons to lines so that they can be rendered as routes
+  tracks_sf <- sf::st_sf(
+    id = seq_along(valid_idx),
+    geometry = geom
+  ) %>%
+    sf::st_cast("MULTILINESTRING", warn = FALSE) %>%
+    sf::st_cast("LINESTRING", warn = FALSE)
+
+  tracks_sf
 }
 
 load_cafes <- function() {
@@ -170,20 +196,31 @@ map_combined <- function(bus_data, tram_data, landmark_data, tram_tracks_data) {
       clusterOptions = markerClusterOptions()
     )
 
-  for (i in seq_len(nrow(tram_tracks_data))) {
-    try({
-      shape_json <- fromJSON(tram_tracks_data$`Geo Shape`[i])
-      coords <- shape_json$coordinates[[1]][[1]]
-      if (length(coords) > 0) {
-        base_map <- base_map %>%
-          addPolylines(
-            data = as.data.frame(coords),
-            lng = ~V1, lat = ~V2,
-            color = "grey", weight = 2, opacity = 0.8,
-            group = "Tram Tracks"
-          )
-      }
-    }, silent = TRUE)
+  if (inherits(tram_tracks_data, "sf") && nrow(tram_tracks_data) > 0) {
+    base_map <- base_map %>%
+      addPolylines(
+        data = tram_tracks_data,
+        color = "#6c5ce7",
+        weight = 2.5,
+        opacity = 0.8,
+        group = "Tram Tracks"
+      )
+  } else if (!is.null(tram_tracks_data) && "Geo Shape" %in% names(tram_tracks_data)) {
+    for (i in seq_len(nrow(tram_tracks_data))) {
+      try({
+        shape_json <- fromJSON(tram_tracks_data$`Geo Shape`[i])
+        coords <- shape_json$coordinates[[1]][[1]]
+        if (length(coords) > 0) {
+          base_map <- base_map %>%
+            addPolylines(
+              data = as.data.frame(coords),
+              lng = ~V1, lat = ~V2,
+              color = "#6c5ce7", weight = 2.5, opacity = 0.8,
+              group = "Tram Tracks"
+            )
+        }
+      }, silent = TRUE)
+    }
   }
 
   base_map %>%
