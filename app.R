@@ -17,6 +17,8 @@ invisible(lapply(pkgs, library, character.only = TRUE))
 options(osrm.server = "https://router.project-osrm.org/",
         osrm.profile = "car")
 
+tableau_public_url <- "https://public.tableau.com/views/tableau_17614016517020/dashboard?:showVizHome=no&:embed=true"
+
 logo_path <- file.path("img", "logo.png")
 logo_src <- if (file.exists(logo_path)) {
   base64enc::dataURI(file = logo_path, mime = "image/png")
@@ -317,9 +319,9 @@ app_styles <- '
     border: none;
     box-shadow: 0 12px 32px rgba(18, 36, 76, 0.32);
     border-radius: 0;
-    padding: 16px 34px;
-    margin: 28px auto 30px;
-    max-width: 1180px;
+    padding: 18px 72px;
+    margin: 0 0 32px 0;
+    width: 100%;
   }
   .brand-title {
     display: flex;
@@ -392,8 +394,10 @@ app_styles <- '
   }
   @media (max-width: 991px) {
     .navbar.navbar-default {
-      margin: 18px 16px 26px;
-      padding: 14px 20px;
+      margin: 0 0 24px 0;
+      padding: 16px 28px;
+      width: 100%;
+      border-radius: 0;
     }
     .navbar .navbar-brand img {
       height: 42px;
@@ -888,6 +892,114 @@ app_styles <- '
   .irs-from, .irs-to, .irs-single {
     background: var(--brand-primary) !important;
   }
+  .tableau-section {
+    padding: 28px 0 56px;
+    background: transparent;
+    max-width: none;
+    width: 100%;
+  }
+  .tableau-section .container-fluid,
+  .tableau-section.insight-section {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  .tableau-hero,
+  .tableau-embed-card {
+    width: calc(100vw - 64px);
+    max-width: 2000px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tableau-hero {
+    background: linear-gradient(150deg, #080b12 0%, #121727 45%, #1c2031 100%);
+    border-radius: 26px;
+    padding: 32px 36px;
+    color: #f7f8ff;
+    box-shadow: 0 32px 60px rgba(4, 8, 16, 0.48);
+  }
+  .tableau-hero .hero-text h2 {
+    color: #f9faff;
+    text-shadow: 0 6px 20px rgba(5, 10, 22, 0.6);
+  }
+  .tableau-hero .hero-text p {
+    color: rgba(226, 231, 255, 0.78);
+  }
+  .tableau-hero .insight-badge {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(180, 194, 255, 0.35);
+  }
+  .tableau-hero .badge-label {
+    color: rgba(224, 230, 255, 0.65);
+  }
+  .tableau-hero .badge-value {
+    color: #d5dcff;
+  }
+  .tableau-embed-card {
+    margin-top: 24px;
+    background: linear-gradient(160deg, #0a0d15 0%, #121726 58%, #1a1f31 100%);
+    border: 1px solid rgba(56, 64, 92, 0.38);
+    border-radius: 24px;
+    padding: 30px 32px;
+    box-shadow: 0 30px 58px rgba(5, 10, 22, 0.5);
+    color: rgba(232, 236, 255, 0.92);
+  }
+  .tableau-embed-card h3 {
+    color: #f2f4ff;
+    margin-top: 0;
+    margin-bottom: 14px;
+  }
+  .tableau-embed-card p {
+    color: rgba(206, 212, 246, 0.76);
+    margin-bottom: 18px;
+  }
+  .tableau-embed-wrapper {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #090b12;
+    box-shadow: inset 0 0 0 1px rgba(24, 28, 44, 0.45);
+    height: min(1200px, calc(100vh - 180px));
+    min-height: 760px;
+  }
+  .tableau-embed-wrapper iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 760px;
+    border: none;
+    background: #090b12;
+  }
+  .tableau-placeholder {
+    border: 1px dashed rgba(128, 138, 174, 0.4);
+    border-radius: 16px;
+    padding: 24px;
+    background: rgba(247, 249, 255, 0.85);
+    color: rgba(51, 59, 86, 0.85);
+    line-height: 1.6;
+  }
+  .tableau-placeholder code {
+    background: rgba(92, 105, 196, 0.24);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #b8c3ff;
+  }
+  .tableau-placeholder-footnote {
+    margin-top: 22px;
+    font-size: 0.95rem;
+    color: rgba(192, 198, 255, 0.78);
+    line-height: 1.6;
+  }
+  .tableau-placeholder-footnote ol {
+    padding-left: 20px;
+    margin: 12px 0;
+  }
+  .tableau-placeholder-footnote li {
+    margin-bottom: 6px;
+  }
   @media (max-width: 991px) {
     #map {
       height: 70vh !important;
@@ -900,6 +1012,19 @@ app_styles <- '
     .home-hero {
       padding: 28px 24px;
     }
+    .tableau-hero,
+    .tableau-embed-card {
+      width: calc(100vw - 36px);
+    }
+    .tableau-embed-wrapper {
+      height: auto;
+      min-height: 680px;
+    }
+    .tableau-embed-wrapper iframe {
+      position: static;
+      height: 680px;
+      min-height: 680px;
+    }
   }
   @media (max-width: 600px) {
     .home-hero h1 {
@@ -907,6 +1032,17 @@ app_styles <- '
     }
     .home-hero p {
       font-size: 16px;
+    }
+    .tableau-hero,
+    .tableau-embed-card {
+      width: calc(100vw - 28px);
+    }
+    .tableau-embed-wrapper {
+      min-height: 560px;
+    }
+    .tableau-embed-wrapper iframe {
+      height: 560px;
+      min-height: 560px;
     }
   }
 '
@@ -966,6 +1102,12 @@ home_tab <- tabPanel(
         h3(tagList("Dining", tags$br(), "Recommendations")),
         p("Choose any landmark to instantly surface nearby dining venues, ranked by walking distance and seating capacity."),
         actionButton("card_dining", "Explore Dining Insights", class = "ghost-btn", width = "100%")
+      ),
+      div(
+        class = "info-card",
+        h3(tagList("Visitor", tags$br(), "Readiness")),
+        p("Track how prepared each Melbourne landmark is by blending transit access with dining capacity in an immersive dashboard."),
+        actionButton("card_tableau", "View Visitor Readiness", class = "ghost-btn", width = "100%")
       )
     )
   )
@@ -1187,6 +1329,29 @@ access_insights_dining_tab <- tabPanel(
   )
 )
 
+tableau_tab <- tabPanel(
+  "Visitor Readiness",
+  value = "visitor_readiness",
+  div(
+    class = "container-fluid insight-section tableau-section",
+    div(
+      class = "insight-hero tableau-hero",
+      div(
+        class = "hero-text",
+        h2("Melbourne Visitor Readiness"),
+        p("Monitor how well Melbourne’s key landmarks balance transport accessibility with dining capacity—mirroring the Tableau experience while staying inside this app.")
+      )
+    ),
+    div(
+      class = "tableau-embed-card",
+      div(
+        class = "tableau-embed-wrapper",
+        uiOutput("tableau_embed")
+      )
+    )
+  )
+)
+
 ui <- tagList(
   tags$head(tags$style(HTML(app_styles))),
   div(
@@ -1203,7 +1368,8 @@ ui <- tagList(
       home_tab,
       map_tab,
       access_insights_transit_tab,
-      access_insights_dining_tab
+      access_insights_dining_tab,
+      tableau_tab
     )
   )
 )
@@ -1255,6 +1421,82 @@ server <- function(input, output, session) {
 
   observeEvent(input$card_dining, {
     updateTabsetPanel(session, "main_nav", selected = "access_dining")
+  })
+
+  observeEvent(input$card_tableau, {
+    updateTabsetPanel(session, "main_nav", selected = "visitor_readiness")
+  })
+
+  output$tableau_embed <- renderUI({
+    config_path <- "tableau_url.txt"
+    remote_url <- NULL
+
+    if (file.exists(config_path)) {
+      urls <- readLines(config_path, warn = FALSE)
+      urls <- trimws(urls)
+      urls <- urls[urls != ""]
+      if (length(urls)) {
+        remote_url <- urls[[1]]
+      }
+    }
+
+    if (is.null(remote_url) && nzchar(tableau_public_url)) {
+      remote_url <- tableau_public_url
+    }
+
+    root_html <- file.path("tableau", "index.html")
+    www_html <- file.path("www", "tableau", "index.html")
+
+    if (file.exists(root_html)) {
+      if (!"tableau" %in% names(shiny::resourcePaths())) {
+        shiny::addResourcePath("tableau", "tableau")
+      }
+      return(tags$iframe(
+        src = "tableau/index.html",
+        title = "Embedded Tableau workbook",
+        loading = "lazy"
+      ))
+    }
+
+    if (file.exists(www_html)) {
+      return(tags$iframe(
+        src = "tableau/index.html",
+        title = "Embedded Tableau workbook",
+        loading = "lazy"
+      ))
+    }
+
+    if (!is.null(remote_url) && nzchar(remote_url)) {
+      return(tags$iframe(
+        src = remote_url,
+        title = "Embedded Tableau workbook",
+        loading = "lazy"
+      ))
+    }
+
+    workbook_detected <- file.exists("tableau.twbx")
+
+    div(
+      class = "tableau-placeholder",
+      tags$p("We couldn't find a Tableau Public link or local export to display right now."),
+      if (workbook_detected) {
+        tags$p(
+          "Export the packaged workbook ",
+          tags$code("tableau.twbx"),
+          " to a web page (HTML + assets) and place the output inside ",
+          tags$code("tableau/"),
+          " to view it here."
+        )
+      } else {
+        tags$p(
+          "Provide a Tableau Public link in ",
+          tags$code("tableau_url.txt"),
+          " or add a local export under ",
+          tags$code("tableau/index.html"),
+          "."
+        )
+      }
+    )
   })
 
   # ---- Map tab logic ----
