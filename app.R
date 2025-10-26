@@ -671,7 +671,7 @@ app_styles <- '
   .insight-layout {
     display: grid;
     gap: 24px;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: 1fr;
   }
   .insight-visual,
   .insight-table {
